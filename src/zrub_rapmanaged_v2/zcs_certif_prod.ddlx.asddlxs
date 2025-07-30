@@ -1,0 +1,91 @@
+@Metadata.layer: #CUSTOMER
+// Dados de cabeçalho
+@UI:{
+    headerInfo: {
+        typeName:       'Certificado',
+        typeNamePlural: 'Certificados',
+        imageUrl: 'Icon',
+        title: { 
+            label: 'Certificado', 
+            value: 'Matnr', 
+            type:  #STANDARD 
+        }
+    }
+}
+
+annotate entity zcs_certif_prod with
+{
+  @UI.facet: [
+    { purpose: #HEADER,                 // CABEÇALHO: Seção do cabeçalho na tela.
+      type: #FIELDGROUP_REFERENCE,      // AGRUPAR: Os campos que usarem esse qualifier ficam agrupados. 
+      importance: #HIGH,
+      position: 1,                      // Funciona como ORDENADOR, não como posição física na tela.
+      targetQualifier: 'HeaderData',    // USE: @UI.fieldGroup: [{ qualifier: 'HeaderData' }] Para o campo obter esse comportamento.
+      label: 'Informações Técnicas'
+    },
+
+    { purpose: #STANDARD,               // ITEM DE TELA: Seção de corpo da tela
+      type: #IDENTIFICATION_REFERENCE,  // LISTA: Os dados aparecem como uma lista, nessa sessão da tela
+      position: 10,
+      label: 'Gerenciamento do Certificado',
+      id: 'Certificate'
+    },
+    
+{ purpose: #STANDARD,                   // ITEM DE TELA
+      type: #FIELDGROUP_REFERENCE,      // AGRUPAR
+      importance: #HIGH,
+      position: 20,
+      targetQualifier: 'Detail',
+      label: 'Detalhes'
+    },
+
+    { purpose: #STANDARD,               // ITEM DE TELA
+      type: #LINEITEM_REFERENCE,        // TABELA: Apresenta na forma de uma tabela
+      position: 30,
+      label: 'Modificações de Status',
+      id: 'CertificateStatus',
+      targetElement: '_Status'
+    }
+  ]
+
+
+  @UI.hidden: true
+  CertUuid;
+
+  @UI.selectionField: [{ position: 10 }] // Pesquisa:     Essa annotation posiciona os campos do filtro.
+  @UI.lineItem: [{ position: 20 }]       // Retorno pesq: Posiciona os itens de retorno da busca, abaixo dos filtros.
+  @UI.identification: [{ position: 20 }] // Detalhe Item: Outra tela. A tela de detalhes do item ( definido em @UI.facet )
+  @EndUserText.label: 'Mater'         // Nomeia o campo "Matnr" como "Material".
+  Matnr;
+
+  @UI.selectionField: [{ position: 30 }]
+  @UI.lineItem: [{ position: 30 }]       
+  @UI.fieldGroup: [{ qualifier: 'Detail' }] // @UI.facet. Características especificadas para grupos.
+  @EndUserText.label: 'Descrição'
+  Description;
+
+  //@UI.identification: [{ position: 30 }]
+  @UI.fieldGroup: [{ qualifier: 'HeaderData' }]
+  @EndUserText.label: 'Versão'
+  Version;
+
+  @UI.identification: [{ position: 40 }]
+  @EndUserText.label: 'Certificado CE'
+  CertCe;
+
+  @UI.identification: [{ position: 50 }]
+  @EndUserText.label: 'Certificado FCC'
+  CertFcc;
+
+  @UI.identification: [{ position: 60 }]
+  @EndUserText.label: 'Certificado GS'
+  CertGs;
+
+  @UI.identification: [{ position: 70 }]
+  @EndUserText.label: 'Certificado ISO'
+  CertIso;
+
+  @UI.identification: [{ position: 80 }]
+  @EndUserText.label: 'Certificado TUEV'
+  CertTuev;
+}

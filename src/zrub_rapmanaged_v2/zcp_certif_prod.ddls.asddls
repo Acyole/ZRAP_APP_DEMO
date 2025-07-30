@@ -29,6 +29,7 @@ define root view entity zcp_certif_prod
       CertTuev,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
+      'sap-icon://technical-object' as Icon,  
       
       _Status,
       _Prod

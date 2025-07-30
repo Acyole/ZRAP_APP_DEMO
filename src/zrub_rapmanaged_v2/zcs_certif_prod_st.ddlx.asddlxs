@@ -1,0 +1,66 @@
+@Metadata.layer:#CUSTOMER
+// Dados de cabeçalho
+@UI:{
+    headerInfo: {
+        typeName:       'Status',
+        typeNamePlural: 'Status',
+        title: {
+            label: 'Status',
+            value: 'Status',
+            type:  #STANDARD
+        }
+    }
+}
+
+annotate entity ZCS_CERTIF_PROD_ST with
+{
+  @UI.facet: [
+   { purpose: #HEADER,                 // CABEÇALHO: Seção do cabeçalho na tela.
+      type: #FIELDGROUP_REFERENCE,      // AGRUPAR: Os campos que usarem esse qualifier ficam agrupados. 
+      importance: #HIGH,
+      position: 1,                      // Funciona como ORDENADOR, não como posição física na tela.
+      targetQualifier: 'HeaderData',    // USE: @UI.fieldGroup: [{ qualifier: 'HeaderData' }] Para o campo obter esse comportamento.
+      label: 'Detalhes do Status'
+    },
+  
+  { purpose: #STANDARD,
+   type: #IDENTIFICATION_REFERENCE,
+   id: 'St'
+  } ]
+
+  @UI.adaptationHidden: true
+  StateUuid;
+
+  @UI.adaptationHidden: true
+  CertUuid;
+
+  @UI.lineItem: [{ position: 1 }]
+  @UI.identification: [{ position: 1 }]
+  @UI.fieldGroup: [{ qualifier: 'HeaderData', position: 1, label: 'Material'}]
+  Matnr;
+  
+  //@UI.lineItem: [{ position: 2 }]
+  //@UI.identification: [{ position: 2 }]
+  @UI.fieldGroup: [{ qualifier: 'HeaderData', position: 10, label: 'Descrição'}]
+  Description;
+
+  @UI.lineItem: [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  Version;
+
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  Status;
+  
+  @UI.lineItem: [{ position: 30, label: 'Último Status' }]
+  @UI.identification: [{ position: 30, label: 'Último Status' }]
+  StatusOld;
+  
+  @UI.lineItem: [{ position: 40, label: 'Modificados por' }]
+  @UI.identification: [{ position: 40, label: 'Modificados por' }]
+  LastChangedBy;
+  
+  @UI.lineItem: [{ position: 50, label: 'Modificados em' }]
+  @UI.identification: [{ position: 50, label: 'Modificados em' }]
+  LastChangedAt;
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'UI - Service Definition de Certificados'
+define service ZUI_CERTIF {
+  expose zcs_certif_prod;
+  expose ZCS_CERTIF_PROD_ST;
+}
