@@ -4,6 +4,7 @@
     headerInfo: {
         typeName:       'Status',
         typeNamePlural: 'Status',
+        imageUrl: 'Icon',
         title: {
             label: 'Status',
             value: 'Status',

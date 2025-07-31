@@ -1,0 +1,5 @@
+CLASS zbp_cp_certif_prod DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zcp_certif_prod.
+ENDCLASS.
+
+CLASS zbp_cp_certif_prod IMPLEMENTATION.
+ENDCLASS.

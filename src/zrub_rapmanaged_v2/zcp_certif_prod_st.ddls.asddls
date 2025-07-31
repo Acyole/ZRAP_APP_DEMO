@@ -29,6 +29,7 @@ define view entity ZCP_CERTIF_PROD_ST
       LastChangedAt,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
+      'sap-icon://detail-view' as Icon,
       
       _Certif,
       _Prod

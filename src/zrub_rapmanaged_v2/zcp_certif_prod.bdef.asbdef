@@ -1,0 +1,88 @@
+managed
+implementation in class zbp_cp_certif_prod unique;
+strict ( 1 );
+
+// Comando para usar rascunhos, daí tem que atender os passos necessários, nos erros gerados.
+with draft;
+
+define behavior for zcp_certif_prod alias Certificate
+persistent table ztb_rap_certif
+
+// Crie uma tabela de rascunhos (mesmo nome da tabela de persistência, com "b").
+draft table zbtb_rap_certif // Bussines table
+lock master total etag LocalLastChangedAt
+
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  //Na association do fliho é preciso usar "with draft".
+  association _Status { create; with draft; }
+
+  // Coloque os draft actions necessários aqui.
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  field ( numbering : managed, readonly ) CertUuid;
+  field ( readonly ) Description;
+  field ( mandatory ) Matnr;
+
+  // OBS: Toda vez que fizer o CRUD, deve MAPEAR os campos da CDS com os campos da tabela.
+  // Esquerda CDS. Direita Tabela.
+  mapping for ztb_rap_certif
+    {
+      CertUuid           = cert_uuid;
+      Matnr              = matnr;
+      CertStatus         = cert_status;
+      CertCe             = cert_ce;
+      CertGs             = cert_gs;
+      CertFcc            = cert_fcc;
+      CertIso            = cert_iso;
+      CertTuev           = cert_tuev;
+      Version            = version;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+
+}
+
+define behavior for ZCP_CERTIF_PROD_ST alias CertificateSt
+persistent table ztb_rap_status
+
+// Tabela de rascunho para os status, a mesma com "b".
+draft table zbtb_rap_status
+
+lock dependent by _Certif
+authorization dependent by _Certif
+//etag master <field_name>
+{
+  update;
+  delete;
+
+  association _Certif;
+
+  field ( numbering : managed, readonly ) StateUuid;
+  //field ( numbering : managed, readonly ) CertUuid;
+  field ( readonly ) CertUuid;
+  field ( readonly ) Description;
+
+
+
+  mapping for ztb_rap_status
+    {
+      StateUuid          = state_uuid;
+      CertUuid           = cert_uuid;
+      Matnr              = matnr;
+      Version            = version;
+      Status             = status;
+      StatusOld          = status_old;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}

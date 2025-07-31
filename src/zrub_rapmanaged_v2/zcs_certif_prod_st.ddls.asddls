@@ -15,6 +15,7 @@ define view entity ZCS_CERTIF_PROD_ST
       LastChangedBy,
       LastChangedAt,
       LocalLastChangedAt,
+      Icon,
       /* Associations */
       _Certif: redirected to parent zcs_certif_prod,
       _Prod

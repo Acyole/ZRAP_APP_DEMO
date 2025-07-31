@@ -11,7 +11,7 @@ define view entity zba_st_certif
   as select from ztb_rap_status
 {
   key state_uuid            as StateUuid,
-      cert_uuid             as CertUuid,
+  key cert_uuid             as CertUuid,
       matnr                 as Matnr,
       version               as Version,
       status                as Status,
